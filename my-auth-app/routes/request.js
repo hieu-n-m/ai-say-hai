@@ -29,7 +29,7 @@ router.get('/status/:id', auth, getRequestStatus);
 
 router.get('/pending', [auth, managerAuth], getPendingRequests);
 
-router.patch('/approve/:id', [auth, managerAuth], approveRequest);
+router.patch('/approve/:id/', [auth, managerAuth], approveRequest);
 
 router.patch('/reject/:id/', [auth, managerAuth], rejectRequest);
 

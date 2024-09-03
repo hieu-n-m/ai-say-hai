@@ -1,3 +1,4 @@
+const requestEventEmitter = require('../events/requestEvents');
 const Request = require('../models/Request');
 const { validationResult } = require('express-validator');
 
@@ -128,53 +129,59 @@ exports.getUserRequests = async (req, res) => {
     }
   };
 
-  exports.approveRequest = async (req, res) => {
+exports.approveRequest = async (req, res) => {
     try {
-      const request = await Request.findById(req.params.id);
-  
-      if (!request) {
-        return res.status(404).json({ msg: 'Request not found' });
-      }
-  
-      if (request.status !== 'pending') {
-        return res.status(400).json({ msg: 'Request has already been processed' });
-      }
-  
-      request.status = 'approved';
-      await request.save();
-  
-      // Log the action
-      console.log(`Request ${request._id} approved by manager ${req.user.id}`);
-  
-      res.json({ msg: 'Request approved successfully', request });
+        const request = await Request.findById(req.params.id);
+        
+        if (!request) {
+            return res.status(404).json({ msg: 'Request not found' });
+        }
+        
+        if (request.status !== 'pending') {
+            return res.status(400).json({ msg: 'Request has already been processed' });
+        }
+        
+        request.status = 'approved';
+        await request.save();
+        
+        // Log the action
+        console.log(`Request ${request._id} approved by manager ${req.user.id}`);
+
+        // Emit event for status change
+        requestEventEmitter.emit('statusChange', request);
+        
+        res.json({ msg: 'Request approved successfully', request });
     } catch (err) {
-      console.error('Error approving request:', err.message);
-      res.status(500).send('Server error');
+        console.error('Error approving request:', err.message);
+        res.status(500).send('Server error');
     }
-  };
-  
-  exports.rejectRequest = async (req, res) => {
+};
+
+exports.rejectRequest = async (req, res) => {
     try {
-      const request = await Request.findById(req.params.id);
-  
-      if (!request) {
-        return res.status(404).json({ msg: 'Request not found' });
-      }
-  
-      if (request.status !== 'pending') {
-        return res.status(400).json({ msg: 'Request has already been processed' });
-      }
-  
-      request.status = 'rejected';
-      request.rejectionReason = req.body.reason;
-      await request.save();
-  
-      // Log the action
-      console.log(`Request ${request._id} rejected by manager ${req.user.id}`);
-  
-      res.json({ msg: 'Request rejected successfully', request });
+        const request = await Request.findById(req.params.id);
+        
+        if (!request) {
+            return res.status(404).json({ msg: 'Request not found' });
+        }
+        
+        if (request.status !== 'pending') {
+            return res.status(400).json({ msg: 'Request has already been processed' });
+        }
+        
+        request.status = 'rejected';
+        request.rejectionReason = req.body.reason;
+        await request.save();
+        
+        // Log the action
+        console.log(`Request ${request._id} rejected by manager ${req.user.id}`);
+
+        // Emit event for status change
+        requestEventEmitter.emit('statusChange', request);
+        
+        res.json({ msg: 'Request rejected successfully', request });
     } catch (err) {
-      console.error('Error rejecting request:', err.message);
-      res.status(500).send('Server error');
+        console.error('Error rejecting request:', err.message);
+        res.status(500).send('Server error');
     }
-  };
+};
