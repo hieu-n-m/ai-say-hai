@@ -1,12 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
-const auth = require('../middleware/auth');
+const { login } = require('../controllers/authController');
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-router.get('/protected', auth, (req, res) => {
-    res.json({ msg: `Welcome, user ${req.user.id}` });
-});
+router.post('/login', login);
 
 module.exports = router;

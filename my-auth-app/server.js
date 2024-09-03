@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   });
 
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/request', require('./routes/request'));
+app.use('/api/requests', require('./routes/request'));
 
 // Start the server
 const PORT = process.env.PORT || 5001;
