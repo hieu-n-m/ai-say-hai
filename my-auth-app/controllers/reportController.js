@@ -2,6 +2,10 @@ const Request = require('../models/Request');
 
 // Get request count by type with filtering and sorting
 exports.getRequestCountByType = async (req, res) => {
+    if (req.user.role !== 'administrator') {
+        return res.status(403).json({ msg: 'Access denied. Administrator role required.' });
+    }
+    
     const { startDate, endDate, department } = req.query;
     const match = {};
 
@@ -28,6 +32,10 @@ exports.getRequestCountByType = async (req, res) => {
 
 // Get average approval time with filtering and sorting
 exports.getAverageApprovalTime = async (req, res) => {
+    if (req.user.role !== 'administrator') {
+        return res.status(403).json({ msg: 'Access denied. Administrator role required.' });
+    }
+
     const { startDate, endDate, department } = req.query;
     const match = { status: 'approved' };
 
@@ -54,6 +62,10 @@ exports.getAverageApprovalTime = async (req, res) => {
 
 // Get SLA compliance with filtering and sorting
 exports.getSLACompliance = async (req, res) => {
+    if (req.user.role !== 'administrator') {
+        return res.status(403).json({ msg: 'Access denied. Administrator role required.' });
+    }
+
     const { startDate, endDate, department } = req.query;
     const match = { status: 'approved' };
 
