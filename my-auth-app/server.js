@@ -4,6 +4,8 @@ const connectDB = require('./config/db');
 const dotenv = require('dotenv');
 const errorHandler = require('./middleware/errorHandler');
 const logger = require('./config/winston');
+const http = require('http');
+const WebSocket = require('ws');
 
 // Load environment variables
 dotenv.config();
@@ -30,6 +32,23 @@ app.use('/api/reports', require('./routes/report'));
 // Error Handling Middleware
 app.use(errorHandler);
 
+// Create HTTP server
+const server = http.createServer(app);
+
+// Initialize WebSocket server
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+    console.log('Client connected');
+    ws.on('message', (message) => {
+        console.log('Received:', message);
+    });
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+server.listen(PORT, () => logger.info(`Server running on port ${PORT}`));

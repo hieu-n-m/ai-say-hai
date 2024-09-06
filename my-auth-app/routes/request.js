@@ -8,19 +8,19 @@ const multer = require('multer');
 
 // Configure multer for file uploads
 const upload = multer({
-  dest: 'uploads/',
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    dest: 'uploads/',
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
 });
 
 router.post('/', [
-  auth,
-  upload.single('attachment'),
-  [
-    check('type').isIn(['leave', 'travel', 'expense']).withMessage('Invalid request type'),
-    check('startDate').isISO8601().toDate().withMessage('Invalid start date'),
-    check('endDate').isISO8601().toDate().withMessage('Invalid end date'),
-    check('reason').notEmpty().withMessage('Reason is required'),
-  ]
+    auth,
+    upload.single('attachment'),
+    [
+        check('type').isIn(['leave', 'travel', 'expense']).withMessage('Invalid request type'),
+        check('startDate').isISO8601().toDate().withMessage('Invalid start date'),
+        check('endDate').isISO8601().toDate().withMessage('Invalid end date'),
+        check('reason').notEmpty().withMessage('Reason is required'),
+    ]
 ], submitRequest);
 
 router.get('/', auth, getUserRequests);
