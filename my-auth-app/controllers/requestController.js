@@ -53,7 +53,7 @@ exports.submitRequest = async (req, res) => {
 exports.getUserRequests = async (req, res) => {
     try {
         const { type, status } = req.query;
-        let query = { user: req.user.id };
+        let query = req.user.role == 'manager' ? {} : { user: req.user.id };
 
         if (type) {
             query.type = type;

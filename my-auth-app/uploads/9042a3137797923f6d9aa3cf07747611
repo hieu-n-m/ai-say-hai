@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "a1ed3bb0-7415-4f96-bccc-de712f2e12ae",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30785547"
+	},
+	"item": [
+		{
+			"name": "phase 1",
+			"item": [
+				{
+					"name": "request submission",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1Mzc2MzA1LCJleHAiOjE3MjUzNzk5MDV9.OTSlCb8XfaYgorQ-cPKliMUFrFnlVDlVGS5MYYKKha4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "expense",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2023-10-01",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-10-18",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "dayoff rest",
+									"type": "text"
+								},
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "department",
+									"value": "hr1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/requests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request validation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZDViZDgyYzg2ODliNDg2NGJmZTU1OSIsImlhdCI6MTcyNTI4MzcyNiwiZXhwIjoxNzI1Mjg3MzI2fQ.TgMjsPSJrq11DF_JF66JLsQ018EDoePNoV-8HWkxynw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"\",\r\n    \"description\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/request/submit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"request",
+								"submit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aja.doe@example.com\",\r\n    \"password\": \"apassword123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request storage and retrieval",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1MzYwODA4LCJleHAiOjE3MjUzNjQ0MDh9.84_vzmt9V6F-qDD7jdDK3dPagHglVHMxFoc63kaJfgg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5001/api/requests/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"requests",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request status tracking",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1MzYwMzI0LCJleHAiOjE3MjUzNjM5MjR9.DYyI8hDSAy7iBDl1SdiCNSHv6aBbbmN2vDJivBDnMZI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/requests/status/66d6e8e277d514e1250af218",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"requests",
+								"status",
+								"66d6e8e277d514e1250af218"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pending requests for managers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1MzYwMzI0LCJleHAiOjE3MjUzNjM5MjR9.DYyI8hDSAy7iBDl1SdiCNSHv6aBbbmN2vDJivBDnMZI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/requests/pending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"requests",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"password\": \"password123\",\r\n    \"role\": \"administrator\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "phase 2",
+			"item": [
+				{
+					"name": "Notifications for Request Status Changes",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1MzYwODA4LCJleHAiOjE3MjUzNjQ0MDh9.84_vzmt9V6F-qDD7jdDK3dPagHglVHMxFoc63kaJfgg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/requests/approve/66d6e843b0b5c08c90bda445/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"requests",
+								"approve",
+								"66d6e843b0b5c08c90bda445",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notifications for Request Status Changes reject",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1Mzc3NzMxLCJleHAiOjE3MjUzODEzMzF9.JvyCoH_ClMfm2qNA2tuUi0ajyRNg476DleYCCiuX83g",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/requests/reject/66d7275d36ebaf08512e8eac/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"requests",
+								"reject",
+								"66d7275d36ebaf08512e8eac",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "trigger error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5001/api/logs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "report api",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkNmU2ZDJiMGI1YzA4YzkwYmRhNDNjIiwicm9sZSI6Im1hbmFnZXIifSwiaWF0IjoxNzI1Mzc3NzMxLCJleHAiOjE3MjUzODEzMzF9.JvyCoH_ClMfm2qNA2tuUi0ajyRNg476DleYCCiuX83g",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "startDate",
+									"value": "2023-01-01",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-12-31",
+									"type": "text"
+								},
+								{
+									"key": "department",
+									"value": "hr1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5001/api/reports/request-count-by-type",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"reports",
+								"request-count-by-type"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
