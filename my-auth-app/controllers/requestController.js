@@ -62,21 +62,13 @@ exports.getUserRequests = async (req, res) => {
             query.status = status;
         }
 
-        const skip = (page - 1) * limit;
 
         const requests = await Request.find(query)
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(parseInt(limit));
+            .sort({ createdAt: -1 });
 
         const totalRequests = await Request.countDocuments(query);
 
-        res.json({
-            totalRequests,
-            totalPages: Math.ceil(totalRequests / limit),
-            currentPage: parseInt(page),
-            requests
-        });
+        res.json(requests);
     } catch (err) {
         console.error('Error fetching user requests:', err.message);
         res.status(500).send('Server error');
@@ -119,17 +111,10 @@ exports.getPendingRequests = async (req, res) => {
             return res.status(403).json({ msg: 'Access denied. Manager role required.' });
         }
 
-        // Fetch pagination parameters
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const skip = (page - 1) * limit;
-
         // Fetch pending requests with pagination
         const pendingRequests = await Request.find({ status: 'pending' })
             .populate('user', 'name email')
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit);
+            .sort({ createdAt: -1 });
 
         const totalRequests = await Request.countDocuments({ status: 'pending' });
 
@@ -145,12 +130,7 @@ exports.getPendingRequests = async (req, res) => {
             createdAt: request.createdAt
         }));
 
-        res.json({
-            totalRequests,
-            totalPages: Math.ceil(totalRequests / limit),
-            currentPage: page,
-            requests: formattedRequests
-        });
+        res.json(formattedRequests);
     } catch (err) {
         console.error('Error fetching pending requests:', err.message);
         res.status(500).send('Server error');
